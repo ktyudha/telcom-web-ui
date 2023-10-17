@@ -226,8 +226,8 @@
           </div>
           <div class="w-full text-center mt-6">
             <router-link
-              to="/journey/all"
-              class="text-sky-900 bg-yellow-300 px-4 py-1 text-lg rounded-full"
+              to="/journey/all-moments"
+              class="inline-flex justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
             >
               Browse
             </router-link>

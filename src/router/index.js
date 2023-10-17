@@ -16,7 +16,7 @@ const routes = [
     // },
   },
   {
-    path: "/journey/all",
+    path: "/journey/all-moments",
     name: "eepistelcom.journey",
     component: JourneyPageVue,
     // meta: {
