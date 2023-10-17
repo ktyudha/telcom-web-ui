@@ -15,8 +15,7 @@
           <p
             class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48"
           >
-            This Ain't Heaven Dear. Orang-orang tidak sebaik itu dan kamu tidak
-            se- spesial itu
+            Apakah Anda sudah beryukur hari ini?
           </p>
           <div
             class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4"

@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div class="mx-6 mb-24">
+    <div class="mx-6 mb-24 mt-24">
       <div class="max-w-screen-lg mx-auto rounded-3xl bg-yellow-300 mb-8">
-        <div class="py-16 mx-4">
+        <div class="md:py-16 py-10 mx-4">
           <p class="font-semibold text-center text-3xl">
             Official Media of Telecommunication Engineering
           </p>
           <p class="text-center text-gray-800 mt-4">
-            La Tahzan Innallah Ma'ana
+            This Ain't Heaven Dear. Orang-orang tidak sebaik itu dan kamu tidak
+            se- spesial itu
           </p>
           <div class="max-w-md mx-auto mt-8">
             <div class="grid grid-cols-3">
