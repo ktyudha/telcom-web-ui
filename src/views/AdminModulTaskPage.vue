@@ -427,11 +427,21 @@ export default {
 
             push(taskRef, dataSendTask)
               .then(() => {
-                window.location.reload();
+                swal({
+                  title: "Success!",
+                  text: "Success add new Task!",
+                  icon: "success",
+                  buttons: {
+                    confirm: "Continue",
+                  },
+                }).then((willLeave) => {
+                  if (willLeave) {
+                    window.location.reload();
+                  }
+                });
               })
               .catch((error) => {
                 // alert("Gagal menambahkan data");
-
                 swal({
                   title: "Failed!",
                   text: "Your Email Can't Create Task",
