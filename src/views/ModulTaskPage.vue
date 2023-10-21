@@ -122,19 +122,13 @@
                       <p class="col-span-3 font-normal text-xs text-gray-500">
                         Deadline Tugas: {{ task.due }}
                       </p>
-                      <p class="font-normal text-end text-xs text-gray-500">
-                        <span
-                          class="md:px-2 md:py-1.5 px-1.5 py-0.5 rounded-full text-white"
-                          :class="
-                            task.status === 'Done'
-                              ? 'bg-green-400'
-                              : task.status === 'On Progress'
-                              ? 'bg-yellow-400'
-                              : 'bg-gray-400'
-                          "
-                          >{{ task.status }}</span
+                      <div class="font-normal text-end text-xs text-gray-500">
+                        <button
+                          class="px-2 py-0.5 rounded-full bg-green-400 text-white"
                         >
-                      </p>
+                          {{ task.jenis }}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
