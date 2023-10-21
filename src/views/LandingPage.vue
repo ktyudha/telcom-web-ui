@@ -309,7 +309,10 @@ export default {
     get(queryJourney)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          dataJourney.value = snapshot.val();
+          const data = snapshot.val();
+          const dataKeys = Object.keys(data);
+          const firstFourItems = dataKeys.slice(0, 4).map((key) => data[key]);
+          dataJourney.value = firstFourItems;
         } else {
           console.log("No data available");
         }
@@ -342,7 +345,13 @@ export default {
         console.error(error);
       });
 
-    return { pathIcon, dataMataKuliah, truncateString, dataMember };
+    return {
+      pathIcon,
+      dataMataKuliah,
+      truncateString,
+      dataJourney,
+      dataMember,
+    };
   },
 };
 </script>
