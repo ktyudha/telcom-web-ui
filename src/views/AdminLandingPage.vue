@@ -85,7 +85,7 @@
 
               <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <img
-                  src="https://drive.google.com/uc?id=16ZbIsctdDH-2RV5EMN6aL5gdd3PMOuEk"
+                  src="https://firebasestorage.googleapis.com/v0/b/eepistelcom.appspot.com/o/journey%2F1697900428595?alt=media&token=019e6cd4-b8ac-4e58-9df9-715f1f474b52"
                   class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   alt="..."
                 />
@@ -93,7 +93,7 @@
               <!-- Item 2 -->
               <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <img
-                  src="https://drive.google.com/uc?id=19YAVI5Fd1-nnogZLeHuWJXpFg3TGjv3Q"
+                  src="https://firebasestorage.googleapis.com/v0/b/eepistelcom.appspot.com/o/journey%2F1697900441052?alt=media&token=bc0b5238-04ee-48ea-98fa-6d40c52b5d73"
                   class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   alt="..."
                 />
@@ -101,7 +101,7 @@
               <!-- Item 3 -->
               <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <img
-                  src="https://drive.google.com/uc?id=18IPsE9mz1r_bUxseu6K_mvkzr5cB2vMF"
+                  src="https://firebasestorage.googleapis.com/v0/b/eepistelcom.appspot.com/o/journey%2F1697900464172?alt=media&token=db64e85c-8f20-4e5b-84f6-ce1e755529e8"
                   class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   alt="..."
                 />
@@ -109,7 +109,7 @@
               <!-- Item 4 -->
               <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <img
-                  src="https://drive.google.com/uc?id=1ijWOO_rREWIaqFnZ-fW8YD16AoXkc34_"
+                  src="https://firebasestorage.googleapis.com/v0/b/eepistelcom.appspot.com/o/journey%2F1697900480542?alt=media&token=620b5556-8530-453a-84fd-8f8d8696f2ca"
                   class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                   alt="..."
                 />
@@ -242,7 +242,7 @@
                 <div class="container">
                   <img
                     class="rounded-lg shadow-lg"
-                    src="https://drive.google.com/uc?id=1cihoXh409fqZcHNYBjmempZYCQA3S_-M"
+                    src="https://firebasestorage.googleapis.com/v0/b/eepistelcom.appspot.com/o/member%2Fdipsy.jpeg?alt=media&token=7fbfd7d5-4661-4067-9a7b-9b450d67bfbe"
                     alt="image description"
                   />
 

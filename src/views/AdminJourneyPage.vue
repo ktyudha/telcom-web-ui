@@ -79,20 +79,27 @@
                       required
                     />
                   </div>
-                  <div class="mb-8">
+
+                  <div class="mb-4">
                     <label
                       for="base-input"
                       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white placeholder:text-dark"
-                      >URL</label
+                      >Title</label
                     >
                     <input
-                      type="text"
+                      type="file"
                       id="base-input"
-                      class="block w-full p-2 text-gray-900 border-0 rounded-lg bg-gray-100 sm:text-xs"
-                      v-model="dataMoment.url"
+                      class="w-full text-gray-900 border-0 rounded-lg bg-gray-100 sm:text-xs"
+                      @change="onFileChange"
                       required
                     />
                   </div>
+                  <img
+                    :src="previewUrl"
+                    alt="Uploaded Image"
+                    class="rounded-lg mb-8"
+                    v-if="previewUrl"
+                  />
                 </div>
 
                 <div class="flex justify-between items-center">
@@ -148,6 +155,12 @@ import GuestLayout from "@/layouts/GuestLayout.vue";
 import { reactive, ref } from "vue";
 import { getDatabase, ref as dbRef, get, query, push } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import {
+  getStorage,
+  ref as sgRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
 import swal from "sweetalert";
 
 export default {
@@ -158,17 +171,22 @@ export default {
   setup() {
     const db = getDatabase();
     const auth = getAuth();
+    const storage = getStorage();
+    const timestamp = new Date().getTime();
 
     const queryBySlug = query(dbRef(db, "journey"));
     const taskRef = dbRef(db, `/journey`);
 
+    const storageRef = sgRef(storage, `/journey/${timestamp}`);
+
     const dataMoment = reactive({
       author: auth.currentUser.displayName,
       title: "",
-      url: "https://drive.google.com/uc?id=<ganti dengan id gambar anda>",
+      url: "",
     });
 
     const dataJourney = ref();
+    const previewUrl = ref();
 
     get(queryBySlug)
       .then((snapshot) => {
@@ -182,40 +200,99 @@ export default {
         console.error(error);
       });
 
-    function writeMoment() {
-      push(taskRef, dataMoment)
-        .then(() => {
-          swal({
-            title: "Success!",
-            text: "Success add moment for our journey!",
-            icon: "success",
-            buttons: {
-              confirm: "Continue",
-            },
-          }).then((willLeave) => {
-            if (willLeave) {
-              window.location.reload();
-            }
-          });
-        })
-        .catch((error) => {
-          swal({
-            title: "Failed!",
-            text: "Your Email Can't Create Task",
-            icon: "warning",
-            buttons: {
-              confirm: "Back",
-            },
-          }).then((willLeave) => {
-            if (willLeave) {
-              window.location.reload();
-            }
-          });
-          console.error("Gagal menambahkan data:", error);
-        });
+    function onFileChange(event) {
+      dataMoment.url = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(dataMoment.url);
+      reader.onload = () => {
+        previewUrl.value = reader.result;
+      };
     }
 
-    return { writeMoment, dataMoment, dataJourney };
+    function writeMoment() {
+      if (dataMoment.url) {
+        uploadBytes(storageRef, dataMoment.url)
+          .then((snapshot) => {
+            console.log("Gambar berhasil diunggah!" + snapshot);
+            return getDownloadURL(storageRef);
+          })
+          .then((downloadURL) => {
+            dataMoment.url = downloadURL; // Simpan URL gambar dalam objek dataMoment
+            return push(taskRef, dataMoment);
+          })
+          .then(() => {
+            console.log("Data berhasil diunggah ke Realtime Database!");
+            showSuccessAlert();
+          })
+          .catch((error) => {
+            console.error("Gagal mengunggah data dan gambar:", error);
+            showErrorAlert();
+          });
+      } else {
+        // Jika tidak ada gambar yang diunggah, langsung menyimpan dataMoments ke Realtime Database
+        push(taskRef, dataMoment)
+          .then(() => {
+            console.log("Data berhasil diunggah ke Realtime Database!");
+            showSuccessAlert();
+          })
+          .catch((error) => {
+            console.error("Gagal mengunggah data:", error);
+            showErrorAlert();
+          });
+      }
+    }
+    // function writeMoment() {
+    //   uploadBytes(storageRef, dataMoment.url).then((snapshot) => {
+    //     console.log("Uploaded a blob or file!");
+    //     console.log(snapshot);
+    //   });
+
+    //   push(taskRef, dataMoment)
+    //     .then(() => {
+    //       showSuccessAlert();
+    //     })
+    //     .catch((error) => {
+    //       showErrorAlert();
+    //       console.error("Gagal menambahkan data:", error);
+    //     });
+    // }
+    function showSuccessAlert() {
+      swal({
+        title: "Success!",
+        text: "Success add moment for our journey!",
+        icon: "success",
+        buttons: {
+          confirm: "Continue",
+        },
+      }).then((willLeave) => {
+        if (willLeave) {
+          window.location.reload();
+        }
+      });
+    }
+
+    function showErrorAlert() {
+      swal({
+        title: "Failed!",
+        text: "Your Email Can't Create Task",
+        icon: "warning",
+        buttons: {
+          confirm: "Back",
+        },
+      }).then((willLeave) => {
+        if (willLeave) {
+          window.location.reload();
+        }
+      });
+    }
+
+    return {
+      writeMoment,
+      dataMoment,
+      dataJourney,
+      onFileChange,
+      previewUrl,
+    };
   },
 };
 </script>
