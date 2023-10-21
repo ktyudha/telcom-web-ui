@@ -309,10 +309,7 @@ export default {
     get(queryJourney)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          const data = snapshot.val();
-          const dataKeys = Object.keys(data);
-          const firstFourItems = dataKeys.slice(0, 4).map((key) => data[key]);
-          dataJourney.value = firstFourItems;
+          dataJourney.value = snapshot.val();
         } else {
           console.log("No data available");
         }
