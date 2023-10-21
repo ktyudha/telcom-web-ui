@@ -15,42 +15,59 @@
   </div>
 </template>
   
-<script setup>
-// import { ref } from "vue";
+<script>
+import { reactive } from "vue";
 import {
   getAuth,
-  // createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+
 import { useRouter } from "vue-router";
+export default {
+  name: "SignInPage",
+  setup() {
+    const router = useRouter();
+    let auth = getAuth();
 
-// const email = ref("");
-// const password = ref("");
-const router = useRouter();
-// const auth = getAuth();
+    if (auth.currentUser != null) {
+      router.push("/admin");
+    }
 
-// const register = () => {
-//   createUserWithEmailAndPassword(auth, email.value, password.value)
-//     .then((data) => {
-//       console.log("Successfully registered" + data);
-//       router.push("/");
-//     })
-//     .catch((error) => {
-//       console.log(error.code);
-//       alert(error.message);
-//     });
-// };
-
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(getAuth(), provider)
-    .then(() => {
-      router.push("/");
-    })
-    .catch((error) => {
-      console.log(error.code);
+    const registerUser = reactive({
+      email: "",
+      password: "",
     });
+
+    function signInEmailPassword() {
+      signInWithEmailAndPassword(
+        auth,
+        registerUser.email,
+        registerUser.password
+      )
+        .then((data) => {
+          console.log("Successfully registered" + data);
+          router.push("/");
+        })
+        .catch((error) => {
+          console.log(error.code);
+          alert(error.message);
+        });
+    }
+
+    const signInWithGoogle = () => {
+      const provider = new GoogleAuthProvider();
+      signInWithPopup(getAuth(), provider)
+        .then(() => {
+          router.push("/admin");
+        })
+        .catch((error) => {
+          console.log(error.code);
+        });
+    };
+    return { registerUser, signInWithGoogle, signInEmailPassword };
+  },
 };
 </script>
   

@@ -3,10 +3,10 @@
     <div class="mx-6 mb-24 mt-24">
       <div class="max-w-screen-lg mx-auto rounded-3xl bg-yellow-300 mb-8">
         <div class="md:py-16 py-10 mx-4">
-          <p class="font-semibold text-center text-3xl">
+          <p class="font-semibold text-center md:text-3xl text-2xl">
             Official Media of Telecommunication Engineering
           </p>
-          <p class="text-center text-gray-800 mt-4">
+          <p class="text-center text-gray-800 mt-4 md:text-sm text-xs">
             This Ain't Heaven Dear. Orang-orang tidak sebaik itu dan kamu tidak
             se- spesial itu
           </p>
@@ -18,11 +18,13 @@
                   id="helper-text"
                   aria-describedby="helper-text-explanation"
                   class="bg-gray-50 border-0 text-gray-900 text-sm w-full py-2 dark:bg-gray-700 rounded-xl"
+                  readonly
+                  disabled
                 />
               </div>
               <div class="text-end">
                 <button
-                  class="bg-sky-900 py-2 px-4 text-sm rounded-xl text-white"
+                  class="bg-sky-900 py-2 px-2 md:px-4 text-sm rounded-xl text-white"
                 >
                   Subscribe
                 </button>

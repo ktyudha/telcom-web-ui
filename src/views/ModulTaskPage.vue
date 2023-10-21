@@ -56,32 +56,33 @@
               </template>
 
               <div
-                class="d-none shadow-xl bg-sky-900 rounded-xl mt-4 grid grid-cols-2"
+                class="shadow-xl bg-sky-900 rounded-xl mt-4 grid lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-1 md:text-center md:mx-auto"
               >
                 <p
-                  class="text-white font-semibold text-sm mx-4 my-2 md:text-start"
+                  class="text-white font-semibold text-sm mx-4 my-2 lg:my-2 md:mb-0 md:text-start"
                 >
                   Ethol
                 </p>
                 <a
                   href="https://ethol.pens.ac.id"
                   target="_blank"
-                  class="font-normal text-end mr-4 my-auto text-xs text-gray-500"
+                  class="font-normal lg:text-end mr-4 my-auto text-xs md:mx-4 lg:my-auto md:mt-1 md:mb-4 md:text-start text-end text-gray-500"
                 >
                   <span
                     class="bg-yellow-300 px-2.5 py-0.5 hover:py-1 hover:px-3 rounded-full text-sky-900"
                     >Get started !</span
                   >
                 </a>
+
                 <p
-                  class="text-white font-semibold text-sm mx-4 my-2 md:text-start"
+                  class="text-white font-semibold text-sm mx-4 my-2 lg:my-2 md:mb-0 md:text-start"
                 >
                   Online Mis
                 </p>
                 <a
                   href="https://online.mis.pens.ac.id"
                   target="_blank"
-                  class="font-normal text-end mr-4 my-auto text-xs text-gray-500"
+                  class="font-normal lg:text-end mr-4 my-auto lg:my-auto text-xs md:mx-4 md:mt-1 md:mb-4 md:text-start text-end text-gray-500"
                 >
                   <span
                     class="bg-yellow-300 px-2.5 py-0.5 hover:py-1 hover:px-3 rounded-full text-sky-900"

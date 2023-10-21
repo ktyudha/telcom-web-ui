@@ -21,7 +21,7 @@
             class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4"
           >
             <a
-              href="/#member"
+              href="/admin/#member"
               class="inline-flex mx-auto max-w-sm justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
             >
               D3 TA 2022
@@ -40,7 +40,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-6">
           <template v-for="(matkul, index) in dataMataKuliah.data" :key="index">
             <div>
-              <router-link :to="'/kuliah/' + matkul.slug">
+              <router-link :to="'/admin/kuliah/' + matkul.slug">
                 <div
                   class="bg-gray-50 h-full w-full rounded-xl border-1 shadow-md hover:rotate-2"
                 >
@@ -216,7 +216,7 @@
           </div>
           <div class="w-full text-center mt-6">
             <router-link
-              to="/journey/all-moments"
+              to="/admin/journey/all-moments"
               class="inline-flex justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
             >
               Browse
@@ -266,15 +266,13 @@
 import { getDatabase, ref as dbRef, get, query } from "firebase/database";
 import { onMounted, reactive, ref } from "vue";
 import { initFlowbite } from "flowbite";
-import { getAuth } from "firebase/auth";
-import { useRouter } from "vue-router";
 
 import GuestLayoutVue from "@/layouts/GuestLayout.vue";
 
 import pathIcon from "../assets/dipsy.jpeg";
 
 export default {
-  name: "LandingPage",
+  name: "AdminLandingPage",
   components: {
     GuestLayoutVue,
   },
@@ -282,17 +280,10 @@ export default {
     onMounted(() => {
       initFlowbite();
     });
-
-    const router = useRouter();
     const db = getDatabase();
-    let auth = getAuth();
 
     const dataMataKuliah = reactive({});
     const dataMember = reactive({});
-
-    if (auth.currentUser != null) {
-      router.push("/admin");
-    }
 
     function truncateString(str, maxLength) {
       if (str.length > maxLength) {
@@ -300,7 +291,6 @@ export default {
       }
       return str;
     }
-
     const dataJourney = ref();
     const queryJourney = query(dbRef(db, "journey"));
     const queryModul = query(dbRef(db, "modul"));
@@ -342,7 +332,13 @@ export default {
         console.error(error);
       });
 
-    return { pathIcon, dataMataKuliah, truncateString, dataMember };
+    return {
+      pathIcon,
+      dataMataKuliah,
+      truncateString,
+      dataMember,
+      dataJourney,
+    };
   },
 };
 </script>

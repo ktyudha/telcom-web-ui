@@ -16,91 +16,16 @@
       </section>
       <div class="mx-6">
         <div class="max-w-screen-xl mx-auto my-14">
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg"
-                alt=""
-              />
-            </div>
+          <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
+            <template v-for="(journey, index) in dataJourney" :key="index">
+              <div class="md:mx-0 mx-auto">
+                <img
+                  class="h-56 max-w-full rounded-lg"
+                  :src="journey.url"
+                  :alt="journey.title"
+                />
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -110,10 +35,34 @@
 
 <script>
 import GuestLayout from "@/layouts/GuestLayout.vue";
+import { ref } from "vue";
+import { getDatabase, ref as dbRef, get, query } from "firebase/database";
+
 export default {
   name: "JourneyPage",
   components: {
     GuestLayout,
+  },
+  setup() {
+    const db = getDatabase();
+
+    const queryBySlug = query(dbRef(db, "journey"));
+
+    const dataJourney = ref();
+
+    get(queryBySlug)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          dataJourney.value = snapshot.val();
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    return { dataJourney };
   },
 };
 </script>
