@@ -263,7 +263,13 @@
 </template>
 
 <script>
-import { getDatabase, ref as dbRef, get, query } from "firebase/database";
+import {
+  getDatabase,
+  ref as dbRef,
+  get,
+  query,
+  limitToLast,
+} from "firebase/database";
 import { onMounted, reactive, ref } from "vue";
 import { initFlowbite } from "flowbite";
 import { getAuth } from "firebase/auth";
@@ -302,7 +308,7 @@ export default {
     }
 
     const dataJourney = ref();
-    const queryJourney = query(dbRef(db, "journey"));
+    const queryJourney = query(dbRef(db, "journey"), limitToLast(4));
     const queryModul = query(dbRef(db, "modul"));
     const queryMember = query(dbRef(db, "member"));
 
