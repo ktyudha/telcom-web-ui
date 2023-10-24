@@ -242,7 +242,7 @@
                 <div class="container">
                   <img
                     class="rounded-lg shadow-lg"
-                    src="https://firebasestorage.googleapis.com/v0/b/eepistelcom.appspot.com/o/member%2Fdipsy.jpeg?alt=media&token=7fbfd7d5-4661-4067-9a7b-9b450d67bfbe"
+                    :src="member.url"
                     alt="image description"
                   />
 
