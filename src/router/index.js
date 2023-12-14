@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "../views/LandingPage.vue";
 import ModulTaskPageVue from "@/views/ModulTaskPage.vue";
 import JourneyPageVue from "@/views/JourneyPage.vue";
+import CalculatorIpsPageVue from "@/views/CalculatorIpsPage.vue";
 
 import SignInPage from "../views/SignIn.vue";
 
@@ -13,6 +14,14 @@ import AdminJourneyPageVue from "@/views/AdminJourneyPage.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const routes = [
+  {
+    path: "/calculator",
+    name: "eepistelcom.calculator",
+    component: CalculatorIpsPageVue,
+    // meta: {
+    //   requiresAuth: true,
+    // },
+  },
   {
     path: "/kuliah/:id",
     name: "eepistelcom.modultask",
