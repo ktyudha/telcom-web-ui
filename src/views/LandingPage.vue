@@ -24,7 +24,7 @@
               href="/#member"
               class="inline-flex mx-auto max-w-sm justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
             >
-              D3 TA 2022n
+              D3 TA 2022
             </a>
           </div>
         </div>

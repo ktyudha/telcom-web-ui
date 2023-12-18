@@ -2,20 +2,18 @@
   <div class="max-w-2xl mx-auto">
     <div class="text-center my-10">
       <h2 class="font-bold mb-5">Kalkulator IPS</h2>
-      <p class="font-medium mb-5">{{ dataIps }}</p>
+      <p class="font-medium mb-5 text-4xl text-sky-900">{{ dataIps }}</p>
 
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div class="relative overflow-x-auto shadow rounded-xl mx-6">
         <table
-          class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          class="w-full text-sm text-center text-gray-500 border-0 rounded-xl"
         >
-          <thead
-            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-          >
+          <thead class="text-xs text-white uppercase bg-sky-900">
             <tr>
-              <th scope="col" class="px-6 py-3">No</th>
+              <th scope="col" class="px-6 py-3 text-start">No</th>
               <th scope="col" class="px-6 py-3">Kredit</th>
               <th scope="col" class="px-6 py-3">Nilai</th>
-              <!-- <th scope="col" class="px-6 py-3">Action</th> -->
+              <th scope="col" class="px-6 py-3">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -32,14 +30,25 @@
               </th>
               <td class="px-6 py-4">{{ rekap.kredit }}</td>
               <td class="px-6 py-4">{{ rekap.nilai }}</td>
-              <!-- <td class="px-6 py-4">
-                <a
-                  href="#"
-                  @click="removeData"
-                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >Delete</a
+              <td class="px-6 py-4">
+                <button
+                  @click="removeData(index)"
+                  class="rounded-full mx-2 py-1.5 px-1.5 bg-red-500 text-white"
                 >
-              </td> -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    fill="currentColor"
+                    class="bi bi-trash3"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                    />
+                  </svg>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -51,7 +60,7 @@
       <button
         data-modal-target="authentication-modal"
         data-modal-toggle="authentication-modal"
-        class="mx-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="inline-flex mx-auto max-w-sm justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
         type="button"
       >
         Tambah data
@@ -155,6 +164,7 @@
 <script>
 import { onMounted, reactive, ref } from "vue";
 import { initFlowbite } from "flowbite";
+import swal from "sweetalert";
 
 export default {
   name: "KalkulatorIps",
@@ -178,21 +188,28 @@ export default {
 
     function tambahData() {
       dataConvertion(data.nilai);
-      // nilaiTiapMatkul(nilaiConvertion.value, parseInt(data.kredit));
+      if (
+        data.nilai == null ||
+        data.nilai == "" ||
+        data.kredit == null ||
+        data.kredit == ""
+      ) {
+        showErrorAlert();
+      } else {
+        queryData();
+        allData.value.push({
+          id: dataIndex,
+          kredit: data.kredit,
+          nilai: data.nilai,
+        });
 
-      sumTiapMatkul.value =
-        sumTiapMatkul.value +
-        nilaiTiapMatkul(nilaiConvertion.value, parseInt(data.kredit));
-      sumOfkredit.value = sumOfkredit.value + parseInt(data.kredit);
+        nullData();
+      }
+    }
 
-      dataIps.value = sumTiapMatkul.value / sumOfkredit.value;
-
-      allData.value.push({
-        id: dataIndex,
-        kredit: data.kredit,
-        nilai: data.nilai,
-      });
-      // console.log(dataIps.value);
+    function nullData() {
+      data.kredit = null;
+      data.nilai = null;
     }
 
     function nilaiTiapMatkul(valueNilai, valueKredit) {
@@ -200,11 +217,44 @@ export default {
       return nilai;
     }
 
-    function removeData(id) {
-      allData.value.splice(id, 1);
-      // console.log(allData.value);
+    function showErrorAlert() {
+      swal({
+        title: "Failed!",
+        text: "Please enter Nilai and Kredit Valid data",
+        icon: "warning",
+        buttons: {
+          confirm: "Back",
+        },
+      });
     }
 
+    function removeData(id) {
+      dataConvertion(allData.value[id].nilai);
+
+      var valSumMatkul = nilaiTiapMatkul(
+        nilaiConvertion.value,
+        allData.value[id].kredit
+      );
+      dataIps.value =
+        (sumTiapMatkul.value - valSumMatkul) /
+        (sumOfkredit.value - allData.value[id].kredit);
+      console.log(allData.value[id].kredit);
+
+      console.log(sumTiapMatkul.value);
+      console.log(valSumMatkul);
+      console.log(dataIps.value);
+
+      allData.value.splice(id, 1);
+    }
+
+    function queryData() {
+      sumTiapMatkul.value += nilaiTiapMatkul(
+        nilaiConvertion.value,
+        parseInt(data.kredit)
+      );
+      sumOfkredit.value += parseInt(data.kredit);
+      dataIps.value = sumTiapMatkul.value / sumOfkredit.value;
+    }
     function dataConvertion(value) {
       var xval = value;
 
