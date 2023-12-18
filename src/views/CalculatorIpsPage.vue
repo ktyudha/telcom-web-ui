@@ -238,11 +238,7 @@ export default {
       dataIps.value =
         (sumTiapMatkul.value - valSumMatkul) /
         (sumOfkredit.value - allData.value[id].kredit);
-      console.log(allData.value[id].kredit);
-
-      console.log(sumTiapMatkul.value);
-      console.log(valSumMatkul);
-      console.log(dataIps.value);
+      // console.log(allData.value[id].kredit);
 
       allData.value.splice(id, 1);
     }
