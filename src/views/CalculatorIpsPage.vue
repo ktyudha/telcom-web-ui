@@ -240,6 +240,9 @@ export default {
         (sumOfkredit.value - allData.value[id].kredit);
       // console.log(allData.value[id].kredit);
 
+      if (isNaN(dataIps.value)) {
+        dataIps.value = 0;
+      }
       allData.value.splice(id, 1);
     }
 
