@@ -35,8 +35,33 @@
           Modul & Task
         </p>
         <hr
-          class="lg:w-32 w-16 lg:h-1.5 h-1 mx-auto lg:mt-4 mt-2 mb-12 bg-yellow-300"
+          class="lg:w-32 w-16 lg:h-1.5 h-1 mx-auto lg:mt-4 mt-2 bg-yellow-300"
         />
+        <div
+          class="flex items-center justify-center py-4 md:py-8 flex-wrap mb-4"
+        >
+          <button
+            @click="getSemester(1)"
+            type="button"
+            class="text-sky-900 border border-white hover:border-yellow-300 bg-white focus:ring-2 focus:outline-none focus:ring-yellow-300 rounded-full text-base font-medium px-4 py-1.5 text-center me-3 mb-3"
+          >
+            Semester 1
+          </button>
+          <button
+            @click="getSemester(2)"
+            type="button"
+            class="text-sky-900 border border-white hover:border-yellow-300 bg-white focus:ring-2 focus:outline-none focus:ring-yellow-300 rounded-full text-base font-medium px-4 py-1.5 text-center me-3 mb-3"
+          >
+            Semester 2
+          </button>
+          <button
+            @click="getSemester(3)"
+            type="button"
+            class="text-sky-900 border border-white hover:border-yellow-300 bg-white focus:ring-2 focus:outline-none focus:ring-yellow-300 rounded-full text-base font-medium px-4 py-1.5 text-center me-3 mb-3"
+          >
+            Semester 3
+          </button>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-6">
           <template v-for="(matkul, index) in dataMataKuliah.data" :key="index">
             <div>
@@ -289,6 +314,7 @@ export default {
     const db = getDatabase();
 
     const dataMataKuliah = reactive({});
+    const dataAllMataKuliah = reactive({});
     const dataMember = reactive({});
 
     function truncateString(str, maxLength) {
@@ -297,6 +323,13 @@ export default {
       }
       return str;
     }
+
+    function getSemester(id) {
+      dataMataKuliah.data = dataAllMataKuliah.data.filter(
+        (item) => item.semester === id
+      );
+    }
+
     const dataJourney = ref();
     const queryJourney = query(dbRef(db, "journey"), limitToLast(4));
     const queryModul = query(dbRef(db, "modul"));
@@ -317,7 +350,8 @@ export default {
     get(queryModul)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          dataMataKuliah.data = Object.values(snapshot.val());
+          dataAllMataKuliah.data = Object.values(snapshot.val());
+          getSemester(1);
         } else {
           console.log("No data available");
         }
@@ -341,6 +375,7 @@ export default {
     return {
       pathIcon,
       dataMataKuliah,
+      getSemester,
       truncateString,
       dataMember,
       dataJourney,
