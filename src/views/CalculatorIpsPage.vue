@@ -230,19 +230,18 @@ export default {
 
     function removeData(id) {
       dataConvertion(allData.value[id].nilai);
-
       var valSumMatkul = nilaiTiapMatkul(
         nilaiConvertion.value,
         allData.value[id].kredit
       );
-      dataIps.value =
-        (sumTiapMatkul.value - valSumMatkul) /
-        (sumOfkredit.value - allData.value[id].kredit);
+      sumTiapMatkul.value = sumTiapMatkul.value - valSumMatkul;
+      sumOfkredit.value = sumOfkredit.value - allData.value[id].kredit;
+      dataIps.value = sumTiapMatkul.value / sumOfkredit.value;
       // console.log(allData.value[id].kredit);
-
       if (isNaN(dataIps.value)) {
         dataIps.value = 0;
       }
+      console.log(allData.value[id]);
       allData.value.splice(id, 1);
     }
 
