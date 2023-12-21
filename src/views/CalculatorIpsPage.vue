@@ -75,17 +75,13 @@
       >
         <div class="relative p-4 w-full max-w-md max-h-full">
           <!-- Modal content -->
-          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div class="relative bg-gray-50 rounded-2xl shadow dark:bg-gray-700">
             <!-- Modal header -->
-            <div
-              class="flex items-center justify-between p-2 md:p-3 border-b rounded-t dark:border-gray-600"
-            >
-              <h6 class="text-xl font-semibold text-gray-900 dark:text-white">
-                Tambah data
-              </h6>
+            <div class="flex items-center justify-between">
+              <!-- <h6 class="text-xl font-semibold text-yellow-300">Tambah data</h6> -->
               <button
                 type="button"
-                class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                class="text-sky-900 bg-yellow-300 hover:text-white hover:bg-red-500 m-[-10px] rounded-full w-10 h-10 ms-auto inline-flex justify-center items-center"
                 data-modal-hide="authentication-modal"
               >
                 <svg
@@ -99,7 +95,7 @@
                     stroke="currentColor"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    stroke-width="3"
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
@@ -112,12 +108,13 @@
                 <div>
                   <label
                     for="countries"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start"
-                    >Kredit</label
+                    class="block mb-2 text-sm font-medium text-dark text-start"
+                    >Kredit
+                    <span class="text-[10px] text-yellow-300">*sks</span></label
                   >
                   <select
                     id="countries"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-white text-gray-900 text-sm rounded-lg w-full p-2.5 border-0"
                     v-model="data.kredit"
                   >
                     <option selected value="1">1</option>
@@ -132,13 +129,13 @@
                 <div>
                   <label
                     for="countries"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start"
+                    class="block mb-2 text-sm font-medium text-dark text-start"
                     >Nilai</label
                   >
                   <select
                     id="countries"
                     v-model="data.nilai"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-white text-gray-900 text-sm rounded-lg w-full p-2.5 border-0"
                   >
                     <option selected value="A">A</option>
                     <option value="AB">AB</option>
@@ -153,7 +150,7 @@
                 <button
                   type="submit"
                   data-modal-hide="authentication-modal"
-                  class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  class="w-full hover:text-sky-900 transition delay-100 text-white bg-sky-900 hover:bg-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                   Tambahkan
                 </button>
