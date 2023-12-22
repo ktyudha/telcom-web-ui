@@ -4,6 +4,7 @@ import LandingPage from "../views/LandingPage.vue";
 import ModulTaskPageVue from "@/views/ModulTaskPage.vue";
 import JourneyPageVue from "@/views/JourneyPage.vue";
 import CalculatorIpsPageVue from "@/views/CalculatorIpsPage.vue";
+import CreateShorterPageVue from "@/views/shorter/CreateShorterPage.vue";
 
 import SignInPage from "../views/SignIn.vue";
 
@@ -18,6 +19,14 @@ const routes = [
     path: "/calculator",
     name: "eepistelcom.calculator",
     component: CalculatorIpsPageVue,
+    // meta: {
+    //   requiresAuth: true,
+    // },
+  },
+  {
+    path: "/link",
+    name: "eepistelcom.link",
+    component: CreateShorterPageVue,
     // meta: {
     //   requiresAuth: true,
     // },
