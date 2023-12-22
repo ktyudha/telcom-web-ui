@@ -11,7 +11,7 @@
       <div
         class="max-w-screen-lg md:mt-[-68px] mt-[-128px] md:h-32 h-60 align-middle bg-white rounded-3xl shadow-lg mx-auto"
       >
-        <form action="">
+        <form @submit.prevent="createUrL()">
           <div class="mx-4 relative">
             <div
               class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
@@ -30,7 +30,8 @@
             </div>
             <input
               type="text"
-              id="default-search"
+              name="long-url"
+              v-model="dataURL.dst_url"
               class="block w-full p-4 ps-14 text-md text-gray-900 border-0 rounded-lg focus:ring-0 bg-white placeholder:opacity-80 placeholder:font-light"
               placeholder="https://example.com/my-long-url"
               required
@@ -66,14 +67,16 @@
             >
               <input
                 type="text"
+                name="custom"
+                v-model="dataURL.short_url"
                 class="w-full text-sm text-black font-medium border-0 rounded-lg focus:ring-0 bg-gray-100 placeholder:opacity-50 placeholder:font-light"
                 placeholder="Custom back-half (optional)"
               />
             </div>
             <div class="md:col-span-2 col-span-6 text-end align-middle">
               <button
-                type="button"
-                class="w-full md:w-auto text-white bg-sky-900 py-2 px-7 rounded-full hover:bg-yellow-300 ease-in-out duration-300"
+                type="submit"
+                class="w-full md:w-auto text-white bg-sky-900 py-2 px-7 rounded-full hover:bg-yellow-300"
               >
                 Create
               </button>
@@ -83,6 +86,7 @@
       </div>
 
       <div
+        v-if="resultRef == true"
         class="max-w-screen-lg md:mt-10 mt-6 align-middle bg-sky-900 rounded-3xl shadow-lg mx-auto p-4"
       >
         <div class="flex items-end">
@@ -93,10 +97,10 @@
           />
           <div>
             <h5 class="mb-1 md:text-md text-xs font-semibold text-yellow-300">
-              eepistelcom.web.app/link/CustomLink
+              eepistelcom.web.app/link/{{ dataURL.short_url }}
             </h5>
             <p class="font-normal md:text-sm text-xs text-white">
-              https://example.com/my-long-url
+              {{ dataURL.dst_url }}
             </p>
           </div>
           <div class="flex items-center justify-center"></div>
@@ -134,7 +138,7 @@
               </g>
             </svg>
             <p class="font-normal text-xs text-white capitalize ml-2">
-              Dec 21, 2023
+              {{ formatDate(dataURL.timestamp) }}
             </p>
           </div>
           <div class="mt-3 md:mt-0">
@@ -225,13 +229,127 @@
 import ShorterLayoutVue from "@/layouts/ShorterLayout.vue";
 import pathIcon from "../../assets/dipsy.jpeg";
 
+import { ref as dbRef, getDatabase, push, get, query } from "firebase/database";
+import { getAuth } from "firebase/auth";
+import { reactive, ref } from "vue";
+import moment from "moment";
+import swal from "sweetalert";
+
 export default {
   name: "CreateShorter",
   components: {
     ShorterLayoutVue,
   },
   setup() {
-    return { pathIcon };
+    const db = getDatabase();
+    const auth = getAuth();
+    const urlRef = dbRef(db, `/link`);
+    const queryBySlug = query(dbRef(db, "link"));
+
+    const dataURL = reactive({
+      author: auth.currentUser.email,
+      dst_url: "",
+      short_url: "",
+      timestamp: Date.now(),
+    });
+
+    const resultRef = ref(false);
+
+    // console.log(formatDate(1703250044207));
+
+    function formatDate(value) {
+      return moment(value).format("MMM D, Y");
+    }
+
+    function createUrL() {
+      if (dataURL.dst_url == "") {
+        showErrorAlert();
+      } else {
+        if (dataURL.short_url == "") {
+          dataURL.short_url = generateRandomString(9);
+          sendDataRequest();
+        } else {
+          sendDataRequest();
+        }
+      }
+    }
+
+    function sendDataRequest() {
+      push(urlRef, dataURL)
+        .then(() => {
+          showSuccessAlert();
+          resultRef.value = true;
+          getDataResponse();
+        })
+        .catch((error) => {
+          showErrorAlert();
+          console.error("Gagal menambahkan data:", error);
+        });
+    }
+
+    function getDataResponse() {
+      get(queryBySlug)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log(snapshot.val());
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
+    function generateRandomString(length) {
+      const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let result = "";
+      const charactersLength = characters.length;
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charactersLength);
+        result += characters.charAt(randomIndex);
+      }
+      return result;
+    }
+
+    function copyToClipboard() {
+      const mainUrl = "https://ent.pens.ac.id/link/";
+      var copyText = mainUrl + dataURL.short_url;
+      navigator.clipboard.writeText(copyText);
+    }
+
+    function showSuccessAlert() {
+      swal({
+        title: "Success!",
+        text: "Success add moment for our journey!",
+        icon: "success",
+        buttons: {
+          confirm: "Continue",
+        },
+      });
+    }
+
+    function showErrorAlert() {
+      swal({
+        title: "Failed!",
+        text: "Your Email Can't Create Task",
+        icon: "warning",
+        buttons: {
+          confirm: "Back",
+        },
+      });
+    }
+
+    return {
+      resultRef,
+      pathIcon,
+      dataURL,
+      copyToClipboard,
+      createUrL,
+      sendDataRequest,
+      formatDate,
+    };
   },
 };
 </script>

@@ -5,6 +5,7 @@ import ModulTaskPageVue from "@/views/ModulTaskPage.vue";
 import JourneyPageVue from "@/views/JourneyPage.vue";
 import CalculatorIpsPageVue from "@/views/CalculatorIpsPage.vue";
 import CreateShorterPageVue from "@/views/shorter/CreateShorterPage.vue";
+import ShorterLinkRedirectPageVue from "@/views/shorter/ShorterLinkRedirectPage.vue";
 
 import SignInPage from "../views/SignIn.vue";
 
@@ -27,9 +28,14 @@ const routes = [
     path: "/link",
     name: "eepistelcom.link",
     component: CreateShorterPageVue,
-    // meta: {
-    //   requiresAuth: true,
-    // },
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/link/:id",
+    name: "eepistelcom.redirect",
+    component: ShorterLinkRedirectPageVue,
   },
   {
     path: "/kuliah/:id",
