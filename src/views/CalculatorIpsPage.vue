@@ -1,166 +1,176 @@
 <template>
-  <div class="max-w-2xl mx-auto">
-    <div class="text-center my-10">
-      <h2 class="font-bold mb-5">Kalkulator IPS</h2>
-      <p class="font-medium mb-5 text-4xl text-sky-900">{{ dataIps }}</p>
+  <GuestLayout>
+    <div class="max-w-2xl mx-auto md:pt-20 pt-12">
+      <div class="text-center my-10">
+        <h2 class="font-bold mb-5">Kalkulator IPS</h2>
+        <p class="font-medium mb-5 text-4xl text-sky-900">{{ dataIps }}</p>
 
-      <div class="relative overflow-x-auto shadow rounded-xl mx-6">
-        <table
-          class="w-full text-sm text-center text-gray-500 border-0 rounded-xl"
-        >
-          <thead class="text-xs text-white uppercase bg-sky-900">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-start">No</th>
-              <th scope="col" class="px-6 py-3">Kredit</th>
-              <th scope="col" class="px-6 py-3">Nilai</th>
-              <th scope="col" class="px-6 py-3">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(rekap, index) in allData"
-              :key="index"
-              class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-            >
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        <div class="relative overflow-x-auto shadow rounded-xl mx-6">
+          <table
+            class="w-full text-sm text-center text-gray-500 border-0 rounded-xl"
+          >
+            <thead class="text-xs text-white uppercase bg-sky-900">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-start">No</th>
+                <th scope="col" class="px-6 py-3">Kredit</th>
+                <th scope="col" class="px-6 py-3">Nilai</th>
+                <th scope="col" class="px-6 py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(rekap, index) in allData"
+                :key="index"
+                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
               >
-                {{ index + 1 }}
-              </th>
-              <td class="px-6 py-4">{{ rekap.kredit }}</td>
-              <td class="px-6 py-4">{{ rekap.nilai }}</td>
-              <td class="px-6 py-4">
+                <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {{ index + 1 }}
+                </th>
+                <td class="px-6 py-4">{{ rekap.kredit }}</td>
+                <td class="px-6 py-4">{{ rekap.nilai }}</td>
+                <td class="px-6 py-4">
+                  <button
+                    @click="removeData(index)"
+                    class="rounded-full mx-2 py-1.5 px-1.5 bg-red-500 text-white"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      fill="currentColor"
+                      class="bi bi-trash3"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="mx-auto text-center my-5">
+        <!-- Modal toggle -->
+        <button
+          data-modal-target="authentication-modal"
+          data-modal-toggle="authentication-modal"
+          class="inline-flex mx-auto max-w-sm justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
+          type="button"
+        >
+          Tambah data
+        </button>
+
+        <!-- Main modal -->
+        <div
+          id="authentication-modal"
+          tabindex="-1"
+          aria-hidden="true"
+          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        >
+          <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div
+              class="relative bg-gray-50 rounded-2xl shadow dark:bg-gray-700"
+            >
+              <!-- Modal header -->
+              <div class="flex items-center justify-between">
+                <!-- <h6 class="text-xl font-semibold text-yellow-300">Tambah data</h6> -->
                 <button
-                  @click="removeData(index)"
-                  class="rounded-full mx-2 py-1.5 px-1.5 bg-red-500 text-white"
+                  type="button"
+                  class="text-sky-900 bg-yellow-300 hover:text-white hover:bg-red-500 m-[-10px] rounded-full w-10 h-10 ms-auto inline-flex justify-center items-center"
+                  data-modal-hide="authentication-modal"
                 >
                   <svg
+                    class="w-3 h-3"
+                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
-                    fill="currentColor"
-                    class="bi bi-trash3"
-                    viewBox="0 0 16 16"
+                    fill="none"
+                    viewBox="0 0 14 14"
                   >
                     <path
-                      d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                     />
                   </svg>
+                  <span class="sr-only">Close modal</span>
                 </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="mx-auto text-center my-5">
-      <!-- Modal toggle -->
-      <button
-        data-modal-target="authentication-modal"
-        data-modal-toggle="authentication-modal"
-        class="inline-flex mx-auto max-w-sm justify-center items-center py-2 px-5 text-base text-center text-sky-900 hover:font-semibold rounded-full bg-yellow-300"
-        type="button"
-      >
-        Tambah data
-      </button>
-
-      <!-- Main modal -->
-      <div
-        id="authentication-modal"
-        tabindex="-1"
-        aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-      >
-        <div class="relative p-4 w-full max-w-md max-h-full">
-          <!-- Modal content -->
-          <div class="relative bg-gray-50 rounded-2xl shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between">
-              <!-- <h6 class="text-xl font-semibold text-yellow-300">Tambah data</h6> -->
-              <button
-                type="button"
-                class="text-sky-900 bg-yellow-300 hover:text-white hover:bg-red-500 m-[-10px] rounded-full w-10 h-10 ms-auto inline-flex justify-center items-center"
-                data-modal-hide="authentication-modal"
-              >
-                <svg
-                  class="w-3 h-3"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
+              </div>
+              <!-- Modal body -->
+              <div class="p-4 md:p-5">
+                <form
+                  class="space-y-4"
+                  action="#"
+                  @submit.prevent="tambahData()"
                 >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="3"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
-                <span class="sr-only">Close modal</span>
-              </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5">
-              <form class="space-y-4" action="#" @submit.prevent="tambahData()">
-                <div>
-                  <label
-                    for="countries"
-                    class="block mb-2 text-sm font-medium text-dark text-start"
-                    >Kredit
-                    <span class="text-[10px] text-yellow-300">*sks</span></label
-                  >
-                  <select
-                    id="countries"
-                    class="bg-white text-gray-900 text-sm rounded-lg w-full p-2.5 border-0"
-                    v-model="data.kredit"
-                  >
-                    <option selected value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="6">6</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    for="countries"
-                    class="block mb-2 text-sm font-medium text-dark text-start"
-                    >Nilai</label
-                  >
-                  <select
-                    id="countries"
-                    v-model="data.nilai"
-                    class="bg-white text-gray-900 text-sm rounded-lg w-full p-2.5 border-0"
-                  >
-                    <option selected value="A">A</option>
-                    <option value="AB">AB</option>
-                    <option value="B">B</option>
-                    <option value="BC">BC</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                  </select>
-                </div>
+                  <div>
+                    <label
+                      for="countries"
+                      class="block mb-2 text-sm font-medium text-dark text-start"
+                      >Kredit
+                      <span class="text-[10px] text-yellow-300"
+                        >*sks</span
+                      ></label
+                    >
+                    <select
+                      id="countries"
+                      class="bg-white text-gray-900 text-sm rounded-lg w-full p-2.5 border-0"
+                      v-model="data.kredit"
+                    >
+                      <option selected value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="6">6</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      for="countries"
+                      class="block mb-2 text-sm font-medium text-dark text-start"
+                      >Nilai</label
+                    >
+                    <select
+                      id="countries"
+                      v-model="data.nilai"
+                      class="bg-white text-gray-900 text-sm rounded-lg w-full p-2.5 border-0"
+                    >
+                      <option selected value="A">A</option>
+                      <option value="AB">AB</option>
+                      <option value="B">B</option>
+                      <option value="BC">BC</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                    </select>
+                  </div>
 
-                <button
-                  type="submit"
-                  data-modal-hide="authentication-modal"
-                  class="w-full hover:text-sky-900 transition delay-100 text-white bg-sky-900 hover:bg-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                >
-                  Tambahkan
-                </button>
-              </form>
+                  <button
+                    type="submit"
+                    data-modal-hide="authentication-modal"
+                    class="w-full hover:text-sky-900 transition delay-100 text-white bg-sky-900 hover:bg-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    Tambahkan
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div> </GuestLayout
+  >l
 </template>
 
 <script>
@@ -168,8 +178,12 @@ import { onMounted, reactive, ref } from "vue";
 import { initFlowbite } from "flowbite";
 import swal from "sweetalert";
 
+import GuestLayout from "@/layouts/GuestLayout.vue";
 export default {
   name: "KalkulatorIps",
+  components: {
+    GuestLayout,
+  },
   setup() {
     onMounted(() => {
       initFlowbite();
