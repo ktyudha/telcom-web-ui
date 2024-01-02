@@ -444,7 +444,6 @@ export default {
       .then((snapshot) => {
         if (snapshot.exists()) {
           dataAllURLShortner.data = Object.values(snapshot.val());
-          console.log(dataAllURLShortner.data);
         } else {
           console.log("No data available");
         }
