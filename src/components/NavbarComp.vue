@@ -139,7 +139,7 @@
                     ? { name: 'eepistelcom.admin' }
                     : { name: 'eepistelcom.index' }
                 "
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-900 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-300 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >Home</router-link
               >
             </li>
@@ -147,7 +147,7 @@
             <li>
               <a
                 :href="dataUser ? '/admin/#journey' : '/#journey'"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-900 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-yellow-300 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >Our Journey
               </a>
             </li>
@@ -155,15 +155,23 @@
             <li>
               <a
                 :href="dataUser ? '/admin/#member' : '/#member'"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-yellow-300 md:hover:bg-transparent md:hover:text-sky-900 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-yellow-300 md:hover:bg-transparent md:hover:text-yellow-300 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >About Us</a
               >
             </li>
             <hr />
+            <li v-if="dataUser">
+              <router-link
+                to="/link"
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-yellow-300 md:hover:bg-transparent md:hover:text-yellow-300 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >URLShort</router-link
+              >
+            </li>
+            <hr v-if="dataUser" />
             <li>
               <router-link
                 to="/calculator"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-yellow-300 md:hover:bg-transparent md:hover:text-sky-900 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-yellow-300 md:hover:bg-transparent md:hover:text-yellow-300 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >Calculator IPS</router-link
               >
             </li>
