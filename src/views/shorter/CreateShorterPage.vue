@@ -1,5 +1,5 @@
 <template>
-  <ShorterLayoutVue class="h-screen">
+  <ShorterLayoutVue class="h-screen bg-white">
     <div class="w-full lg:h-3/6 h-3/6 md:h-2/5 bg-sky-900 pt-24">
       <img :src="iconJumbo" alt="" class="md:h-3/5 mx-auto h-2/5" />
 
@@ -197,7 +197,7 @@
                 </svg>
               </button>
               <button
-                @click="deleteURL"
+                @click="deleteURL(dataURL.short_url)"
                 class="rounded-full ml-2 py-1.5 px-1.5 bg-red-500 text-white hover:outline hover:outline-red-500"
               >
                 <svg
@@ -240,7 +240,7 @@
 
       <div
         v-if="dataAllURLShortner"
-        class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 justify-center md:max-w-screen-xl max-w-screen-sm mx-auto mt-12"
+        class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 justify-center md:max-w-screen-xl max-w-screen-sm mx-auto mt-12 pb-12"
       >
         <template
           v-for="(cardURL, index) in dataAllURLShortner.data"
