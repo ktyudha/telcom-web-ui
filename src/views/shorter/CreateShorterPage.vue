@@ -160,7 +160,7 @@
             >
               <button
                 class="rounded-full mx-2 py-1.5 px-1.5 bg-yellow-300 text-sky-900 hover:outline hover:outline-yellow-300"
-                @click="copyToClipboard"
+                @click="copyToClipboard(dataURL.short_url)"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -300,7 +300,7 @@
                     <div class="font-normal text-end text-xs items-center">
                       <button
                         class="rounded-full mx-2 py-1.5 px-1.5 bg-yellow-300 text-sky-900 hover:outline hover:outline-yellow-300"
-                        @click="copyToClipboard"
+                        @click="copyToClipboard(cardURL.short_url)"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -570,9 +570,9 @@ export default {
       return result;
     }
 
-    function copyToClipboard() {
+    function copyToClipboard(valueCopy) {
       const mainUrl = "https://eepistelcom.web.app/link/";
-      var copyText = mainUrl + dataURL.short_url;
+      var copyText = mainUrl + valueCopy;
       navigator.clipboard.writeText(copyText);
       successAddURLShortner("URL copied to clipboard");
     }
