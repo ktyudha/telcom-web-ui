@@ -72,7 +72,7 @@ export default {
       .then((snapshot) => {
         if (snapshot.exists()) {
           dataRedirect.value = Object.values(snapshot.val());
-          console.log(dataRedirect.value[0].dst_url);
+          // console.log(dataRedirect.value[0].dst_url);
           redirectWindow(dataRedirect.value[0].dst_url);
         } else {
           console.log("No data available");
