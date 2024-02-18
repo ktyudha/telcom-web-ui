@@ -61,6 +61,13 @@
           >
             Semester 3
           </button>
+          <button
+            @click="getSemester(4)"
+            type="button"
+            class="text-sky-900 border border-white hover:border-yellow-300 bg-white focus:ring-2 focus:outline-none focus:ring-yellow-300 rounded-full text-base font-medium px-4 py-1.5 text-center me-3 mb-3"
+          >
+            Semester 4
+          </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mx-6">
