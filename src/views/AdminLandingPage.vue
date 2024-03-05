@@ -358,7 +358,7 @@ export default {
       .then((snapshot) => {
         if (snapshot.exists()) {
           dataAllMataKuliah.data = Object.values(snapshot.val());
-          getSemester(1);
+          getSemester(4);
         } else {
           console.log("No data available");
         }
