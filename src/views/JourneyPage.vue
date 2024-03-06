@@ -16,11 +16,13 @@
       </section>
       <div class="mx-6">
         <div class="max-w-screen-xl mx-auto my-14">
-          <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
+          <div
+            class="lg:gap-3 lg:columns-4 md:columns-3 md:gap-3 columns-2 gap-2"
+          >
             <template v-for="(journey, index) in dataJourney" :key="index">
-              <div class="md:mx-0 mx-auto">
+              <div class="mx-auto">
                 <img
-                  class="h-56 max-w-full rounded-lg"
+                  class="md:h-auto md:max-w-full rounded-lg md:mb-3 lg:mb-3 mb-2"
                   :src="journey.url"
                   :alt="journey.title"
                 />

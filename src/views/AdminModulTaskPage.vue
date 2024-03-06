@@ -127,7 +127,16 @@
                       v-model="dataSendTask.url"
                     />
                   </div>
-
+                  <FileUpload
+                    :files="dataSendTask.image"
+                    :accepted-file-types="[
+                      'image/jpeg',
+                      'image/png',
+                      'image/jpg',
+                    ]"
+                    @updatefiles="(file) => onFileUploadUpdate(file)"
+                    required
+                  />
                   <div class="mb-6">
                     <label
                       for="base-input"
@@ -345,13 +354,14 @@ import { getAuth } from "firebase/auth";
 import { ref, onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { initFlowbite } from "flowbite";
+import FileUpload from "../components/FileUploadComp.vue";
 import swal from "sweetalert";
 
 import GuestLayout from "@/layouts/GuestLayout.vue";
 
 export default {
   name: "AdminModulTaskView",
-  components: { GuestLayout },
+  components: { GuestLayout, FileUpload },
   setup() {
     onMounted(() => {
       initFlowbite();
@@ -381,6 +391,7 @@ export default {
       deskripsi: "",
       url: "",
       jenis: "",
+      image: "http://localhost:8080/img/dipsy.78f96748.jpeg",
     });
 
     get(queryBySlug)
